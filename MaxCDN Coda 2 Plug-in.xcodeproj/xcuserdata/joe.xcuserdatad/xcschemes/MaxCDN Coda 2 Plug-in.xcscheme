@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D84D568B171F253600C3D154"
-               BuildableName = "MaxCDN Coda 2 Plug-in.bundle"
+               BuildableName = "MaxCDN Coda 2 Plug-in.codaplugin"
                BlueprintName = "MaxCDN Coda 2 Plug-in"
                ReferencedContainer = "container:MaxCDN Coda 2 Plug-in.xcodeproj">
             </BuildableReference>

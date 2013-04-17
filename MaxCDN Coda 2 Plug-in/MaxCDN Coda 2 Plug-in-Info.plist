@@ -2,6 +2,106 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>SupportedFileExtensions</key>
+	<array>
+		<string>html</string>
+		<string>htm</string>
+		<string>shtml</string>
+		<string>css</string>
+		<string>xml</string>
+		<string>gif</string>
+		<string>jpeg</string>
+		<string>jpg</string>
+		<string>js</string>
+		<string>atom</string>
+		<string>rss</string>
+		<string>mml</string>
+		<string>txt</string>
+		<string>jad</string>
+		<string>wml</string>
+		<string>htc</string>
+		<string>png</string>
+		<string>tif</string>
+		<string>tiff</string>
+		<string>wbmp</string>
+		<string>ico</string>
+		<string>jng</string>
+		<string>bmp</string>
+		<string>svg</string>
+		<string>svgz</string>
+		<string>webp</string>
+		<string>jar</string>
+		<string>war</string>
+		<string>ear</string>
+		<string>hqx</string>
+		<string>doc</string>
+		<string>pdf</string>
+		<string>ps</string>
+		<string>eps</string>
+		<string>ai</string>
+		<string>rtf</string>
+		<string>xls</string>
+		<string>ppt</string>
+		<string>wmlc</string>
+		<string>kml</string>
+		<string>kmz</string>
+		<string>7z</string>
+		<string>cco</string>
+		<string>jardiff</string>
+		<string>jnlp</string>
+		<string>run</string>
+		<string>pl</string>
+		<string>pm</string>
+		<string>prc</string>
+		<string>pdb</string>
+		<string>rar</string>
+		<string>rpm</string>
+		<string>sea</string>
+		<string>swf</string>
+		<string>sit</string>
+		<string>tcl</string>
+		<string>tk</string>
+		<string>der</string>
+		<string>pem</string>
+		<string>crt</string>
+		<string>xpi</string>
+		<string>xhtml</string>
+		<string>zip</string>
+		<string>bin</string>
+		<string>exe</string>
+		<string>dll</string>
+		<string>deb</string>
+		<string>dmg</string>
+        <string>eot</string>
+		<string>iso</string>
+		<string>img</string>
+        <string>msi</string>
+		<string>msp</string>
+		<string>msm</string>
+        <string>mid</string>
+		<string>midi</string>
+		<string>kar</string>
+        <string>mp3</string>
+		<string>ogg</string>
+		<string>m4a</string>
+        <string>ra</string>
+		<string>3gpp</string>
+		<string>3gp</string>
+        <string>mp4</string>
+		<string>mpeg</string>
+		<string>mpg</string>
+        <string>mov</string>
+		<string>webm</string>
+		<string>flv</string>
+        <string>m4v</string>
+		<string>mng</string>
+		<string>asx</string>
+        <string>asf</string>
+		<string>wmv</string>
+		<string>avi</string>
+	</array>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
@@ -25,6 +125,6 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2013 MaxCDN. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
-	<string></string>
+	<string>MaxCDNURLPlugin</string>
 </dict>
 </plist>
