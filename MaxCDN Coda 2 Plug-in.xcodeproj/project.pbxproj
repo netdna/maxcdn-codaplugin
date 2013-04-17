@@ -1,0 +1,278 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D84D5690171F253600C3D154 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84D568F171F253600C3D154 /* Cocoa.framework */; };
+		D84D569A171F253600C3D154 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D84D5698171F253600C3D154 /* InfoPlist.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D84D568C171F253600C3D154 /* MaxCDN Coda 2 Plug-in.codaplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MaxCDN Coda 2 Plug-in.codaplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D84D568F171F253600C3D154 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		D84D5692171F253600C3D154 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		D84D5693171F253600C3D154 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D84D5694171F253600C3D154 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D84D5697171F253600C3D154 /* MaxCDN Coda 2 Plug-in-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MaxCDN Coda 2 Plug-in-Info.plist"; sourceTree = "<group>"; };
+		D84D5699171F253600C3D154 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D84D569B171F253600C3D154 /* MaxCDN Coda 2 Plug-in-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MaxCDN Coda 2 Plug-in-Prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D84D5689171F253600C3D154 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D84D5690171F253600C3D154 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D84D5683171F253600C3D154 = {
+			isa = PBXGroup;
+			children = (
+				D84D5695171F253600C3D154 /* MaxCDN Coda 2 Plug-in */,
+				D84D568E171F253600C3D154 /* Frameworks */,
+				D84D568D171F253600C3D154 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D84D568D171F253600C3D154 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D84D568C171F253600C3D154 /* MaxCDN Coda 2 Plug-in.codaplugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D84D568E171F253600C3D154 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D84D568F171F253600C3D154 /* Cocoa.framework */,
+				D84D5691171F253600C3D154 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D84D5691171F253600C3D154 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D84D5692171F253600C3D154 /* AppKit.framework */,
+				D84D5693171F253600C3D154 /* CoreData.framework */,
+				D84D5694171F253600C3D154 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		D84D5695171F253600C3D154 /* MaxCDN Coda 2 Plug-in */ = {
+			isa = PBXGroup;
+			children = (
+				D84D5696171F253600C3D154 /* Supporting Files */,
+			);
+			path = "MaxCDN Coda 2 Plug-in";
+			sourceTree = "<group>";
+		};
+		D84D5696171F253600C3D154 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D84D5697171F253600C3D154 /* MaxCDN Coda 2 Plug-in-Info.plist */,
+				D84D5698171F253600C3D154 /* InfoPlist.strings */,
+				D84D569B171F253600C3D154 /* MaxCDN Coda 2 Plug-in-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D84D568B171F253600C3D154 /* MaxCDN Coda 2 Plug-in */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D84D569E171F253600C3D154 /* Build configuration list for PBXNativeTarget "MaxCDN Coda 2 Plug-in" */;
+			buildPhases = (
+				D84D5688171F253600C3D154 /* Sources */,
+				D84D5689171F253600C3D154 /* Frameworks */,
+				D84D568A171F253600C3D154 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MaxCDN Coda 2 Plug-in";
+			productName = "MaxCDN Coda 2 Plug-in";
+			productReference = D84D568C171F253600C3D154 /* MaxCDN Coda 2 Plug-in.codaplugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D84D5684171F253600C3D154 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = MaxCDN;
+			};
+			buildConfigurationList = D84D5687171F253600C3D154 /* Build configuration list for PBXProject "MaxCDN Coda 2 Plug-in" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D84D5683171F253600C3D154;
+			productRefGroup = D84D568D171F253600C3D154 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D84D568B171F253600C3D154 /* MaxCDN Coda 2 Plug-in */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D84D568A171F253600C3D154 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D84D569A171F253600C3D154 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D84D5688171F253600C3D154 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D84D5698171F253600C3D154 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D84D5699171F253600C3D154 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D84D569C171F253600C3D154 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D84D569D171F253600C3D154 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		D84D569F171F253600C3D154 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MaxCDN Coda 2 Plug-in/MaxCDN Coda 2 Plug-in-Prefix.pch";
+				INFOPLIST_FILE = "MaxCDN Coda 2 Plug-in/MaxCDN Coda 2 Plug-in-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = codaplugin;
+			};
+			name = Debug;
+		};
+		D84D56A0171F253600C3D154 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MaxCDN Coda 2 Plug-in/MaxCDN Coda 2 Plug-in-Prefix.pch";
+				INFOPLIST_FILE = "MaxCDN Coda 2 Plug-in/MaxCDN Coda 2 Plug-in-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = codaplugin;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D84D5687171F253600C3D154 /* Build configuration list for PBXProject "MaxCDN Coda 2 Plug-in" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D84D569C171F253600C3D154 /* Debug */,
+				D84D569D171F253600C3D154 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D84D569E171F253600C3D154 /* Build configuration list for PBXNativeTarget "MaxCDN Coda 2 Plug-in" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D84D569F171F253600C3D154 /* Debug */,
+				D84D56A0171F253600C3D154 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D84D5684171F253600C3D154 /* Project object */;
+}

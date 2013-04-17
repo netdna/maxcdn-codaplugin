@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'MaxCDN Coda 2 Plug-in' target in the 'MaxCDN Coda 2 Plug-in' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
