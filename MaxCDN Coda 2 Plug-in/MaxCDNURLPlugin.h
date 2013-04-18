@@ -5,6 +5,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "CodaPlugInsController.h"
+#import "RegexKitLite.h"
 
 @class CodaPlugInsController;
 

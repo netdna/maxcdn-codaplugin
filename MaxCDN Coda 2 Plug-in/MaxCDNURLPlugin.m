@@ -6,6 +6,8 @@
 #import "MaxCDNURLPlugin.h"
 #import "CodaPlugInsController.h"
 
+NSString * const kDefaultsURLKey = @"MaxCDNURL";
+
 @interface MaxCDNURLPlugin()
 {
     CodaPlugInsController *controller;
@@ -86,7 +88,7 @@
 #pragma Methods
 
 - (void)initializePlugin
-{
+{    
     // Register menu items
     [controller registerActionWithTitle:[self localizedStringForKey:@"menu-item-1-title"]
                   underSubmenuWithTitle:nil
@@ -99,7 +101,7 @@
     [controller registerActionWithTitle:[self localizedStringForKey:@"menu-item-2-title"]
                   underSubmenuWithTitle:nil
                                  target:self
-                               selector:@selector(test:)
+                               selector:@selector(insertURL:)
                       representedObject:self
                           keyEquivalent:[self localizedStringForKey:@"menu-item-2-key-command"]
                              pluginName:[self localizedStringForKey:@"plugin-name"]];
@@ -123,6 +125,8 @@
     [self closeSheet:sender];
     
     // Save URL
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[_URLTextField stringValue] forKey:kDefaultsURLKey];
 }
 
 - (void)showURLSheet:(id)sender
@@ -138,6 +142,11 @@
         [_cancelButton setStringValue:[self localizedStringForKey:@"sheet-cancel-button"]];
         [_saveButton setStringValue:[self localizedStringForKey:@"sheet-save-button"]];
     }
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([defaults objectForKey:@"MaxCDNURL"] != nil)
+        [_URLTextField setStringValue:[defaults valueForKey:kDefaultsURLKey]];
 
     [NSApp beginSheet:_sheet
        modalForWindow:[textView window]
@@ -146,9 +155,17 @@
           contextInfo:nil];
 }
 
-- (void)test:(id)sender
+- (void)insertURL:(id)sender
 {
-    [textView insertText:@"TEST"];
+    NSString *text = @"<a href=\"/images/1.png\" />\n<a href=\"https://www.apple.com/css/style.css\" />\n<a href=/js/Main.js\" />\n\n/docs/contract-doc.pdf\n\n\nftp://test\n\npath/to/my/file.txt\n\nThis is a test to see how /ffff/fff.m4v well this works!\n\nI know that joe/test/m.txt is a url\n\n<a href=\"joe/test/m.txt\">\n\n<script src=\"/javascript/test.js\"></script>";
+
+    [textView insertText:text];
+    
+    NSArray *matches = [text componentsMatchedByRegex:@"([^(\\s|\"|'|=)]+)/([^\\s]+.(png|css|js|pdf|txt|m4v))"];
+    
+    //([^(\s|"|'|=)]+)\/([^\s]+\.(png|css|js|pdf|txt|m4v))    
+    
+    [textView insertText:[matches description]];
 }
 
 #pragma -

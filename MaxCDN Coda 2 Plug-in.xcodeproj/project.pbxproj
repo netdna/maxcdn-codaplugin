@@ -14,6 +14,8 @@
 		D84D56A917202E0600C3D154 /* MaxCDN Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D84D56A717202E0600C3D154 /* MaxCDN Logo.png */; };
 		D84D56AA17202E0600C3D154 /* MaxCDN Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D84D56A817202E0600C3D154 /* MaxCDN Logo@2x.png */; };
 		D8B06FB91720406400F0CFD2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8B06FB81720406400F0CFD2 /* Localizable.strings */; };
+		D8B06FBC1720A0F700F0CFD2 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B06FBB1720A0F700F0CFD2 /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D8B06FBE1720A35F00F0CFD2 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8B06FBD1720A35F00F0CFD2 /* libicucore.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,9 @@
 		D84D56A717202E0600C3D154 /* MaxCDN Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MaxCDN Logo.png"; sourceTree = "<group>"; };
 		D84D56A817202E0600C3D154 /* MaxCDN Logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MaxCDN Logo@2x.png"; sourceTree = "<group>"; };
 		D8B06FB81720406400F0CFD2 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		D8B06FBA1720A0F600F0CFD2 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
+		D8B06FBB1720A0F700F0CFD2 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+		D8B06FBD1720A35F00F0CFD2 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8B06FBE1720A35F00F0CFD2 /* libicucore.dylib in Frameworks */,
 				D84D5690171F253600C3D154 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -66,6 +72,7 @@
 		D84D568E171F253600C3D154 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8B06FBD1720A35F00F0CFD2 /* libicucore.dylib */,
 				D84D568F171F253600C3D154 /* Cocoa.framework */,
 				D84D5691171F253600C3D154 /* Other Frameworks */,
 			);
@@ -95,9 +102,9 @@
 		D84D5696171F253600C3D154 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D84D5697171F253600C3D154 /* MaxCDN Coda 2 Plug-in-Info.plist */,
 				D84D5698171F253600C3D154 /* InfoPlist.strings */,
 				D84D569B171F253600C3D154 /* MaxCDN Coda 2 Plug-in-Prefix.pch */,
+				D84D5697171F253600C3D154 /* MaxCDN Coda 2 Plug-in-Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -105,10 +112,10 @@
 		D84D56AB17202E0B00C3D154 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D84D56A51720264B00C3D154 /* URLSheet.xib */,
+				D8B06FB81720406400F0CFD2 /* Localizable.strings */,
 				D84D56A717202E0600C3D154 /* MaxCDN Logo.png */,
 				D84D56A817202E0600C3D154 /* MaxCDN Logo@2x.png */,
-				D8B06FB81720406400F0CFD2 /* Localizable.strings */,
+				D84D56A51720264B00C3D154 /* URLSheet.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -119,6 +126,8 @@
 				D84D56A1171F2A6F00C3D154 /* CodaPlugInsController.h */,
 				D84D56A2171F2AD700C3D154 /* MaxCDNURLPlugin.h */,
 				D84D56A3171F2AD700C3D154 /* MaxCDNURLPlugin.m */,
+				D8B06FBA1720A0F600F0CFD2 /* RegexKitLite.h */,
+				D8B06FBB1720A0F700F0CFD2 /* RegexKitLite.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -190,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D84D56A4171F2AD700C3D154 /* MaxCDNURLPlugin.m in Sources */,
+				D8B06FBC1720A0F700F0CFD2 /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

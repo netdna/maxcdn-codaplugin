@@ -136,7 +136,7 @@
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="686163596">
 								<int key="NSCellFlags">68157504</int>
-								<int key="NSCellFlags2">71304192</int>
+								<int key="NSCellFlags2">4195328</int>
 								<string key="NSContents">Label:</string>
 								<object class="NSFont" key="NSSupport" id="401952404">
 									<string key="NSName">LucidaGrande</string>
