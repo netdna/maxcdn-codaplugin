@@ -2,22 +2,34 @@
 //  MaxCDNURLPlugin.m
 //  MaxCDN Coda 2 Plug-in
 //
-//  Created by Joe Dakroub <joe.dakroub@me.com> on 4/17/13.
-//  Copyright (c) 2013 MaxCDN. All rights reserved.
-//
 
 #import "MaxCDNURLPlugin.h"
 #import "CodaPlugInsController.h"
 
-NSString * const kPluginName = @"HTML Entities";
-NSString * const kMenuItemTitle = @"Insert HTML Entity...";
-NSString *stringToBeEncoded = @"";
-
 @interface MaxCDNURLPlugin()
+{
+    CodaPlugInsController *controller;
+    CodaTextView *textView;
+    
+    NSArray *supportedFileExtensions;
+}
+
+@property (assign) IBOutlet NSWindow *sheet;
+@property (unsafe_unretained) IBOutlet NSTextField *messageLabel;
+@property (unsafe_unretained) IBOutlet NSTextField *URLLabel;
+@property (unsafe_unretained) IBOutlet NSTextField *URLTextField;
+@property (unsafe_unretained) IBOutlet NSButton *cancelButton;
+@property (unsafe_unretained) IBOutlet NSButton *saveButton;
+
 - (id)initWithController:(CodaPlugInsController*)inController;
+- (IBAction)closeSheet:(id)sender;
+- (IBAction)saveURL:(id)sender;
 @end
 
 @implementation MaxCDNURLPlugin
+
+#pragma -
+#pragma CodaPlugiInsController Callbacks
 
 //2.0 and lower
 - (id)initWithPlugInController:(CodaPlugInsController*)aController bundle:(NSBundle*)aBundle
@@ -38,70 +50,109 @@ NSString *stringToBeEncoded = @"";
     
     controller = inController;
     textView = [controller focusedTextView:self];
-    [self textViewDidFocus:textView];
-    
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    supportedFileExtensions = [[bundle infoDictionary] objectForKey:@"SupportedFileExtensions"];
-    
+
+    [self initializePlugin];
+        
 	return self;
 }
 
 - (NSString*)name
 {
-	return kPluginName;
-}
-
-- (void)addTextViewObservers
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(textViewDidChange:)
-                                                 name:NSTextDidChangeNotification
-                                               object:nil];
+	return [self localizedStringForKey:@"plugin-name"];
 }
 
 - (void)textViewDidFocus:(CodaTextView *)aTextView;
 {
     textView = aTextView;
-    
-    [self addTextViewObservers];
 }
 
-- (void)textViewDidChange:(NSNotification *)notification
+- (BOOL)validateMenuItem:(NSMenuItem *)aMenuItem
 {
-    id codeTextView = [notification object];
+    BOOL result = YES;
     
-    if (codeTextView == nil)
-        return;
-    
-    if ([codeTextView rangeForUserTextChange].location == NSNotFound ||
-        [codeTextView rangeForUserTextChange].location == 0)
-        return;
-    
-    NSRange previousCharacterRange = NSMakeRange([codeTextView rangeForUserTextChange].location - 1, 1);
-    
-    if (previousCharacterRange.location == NSNotFound)
-        return;
-    
-    NSString *character = [[[codeTextView textStorage] string] substringWithRange:previousCharacterRange];
-    
-    if ([self canBeEncoded:character])
-    {
-        textView = [controller focusedTextView:self];
+    // Disable the Insert menu item if the editor doesn't have focus
+	if ([aMenuItem title] == [self localizedStringForKey:@"menu-item-2-title"])
+	{
+		CodaTextView *tv = [controller focusedTextView:self];
         
-        [textView beginUndoGrouping];
-        
-        [textView setSelectedRange:previousCharacterRange];
-        [self encodeHTMLEntities];
-        
-        [textView endUndoGrouping];
-        
-        [textView setSelectedRange:NSMakeRange([codeTextView rangeForUserTextChange].location +
-                                               [codeTextView selectedRange].length, 0)];
-    }
+		if (tv == nil)
+			result = NO;
+	}
+    
+	return result;
 }
 
 #pragma -
-#pragma HTML Entities helpers
+#pragma Methods
+
+- (void)initializePlugin
+{
+    // Register menu items
+    [controller registerActionWithTitle:[self localizedStringForKey:@"menu-item-1-title"]
+                  underSubmenuWithTitle:nil
+                                 target:self
+                               selector:@selector(showURLSheet:)
+                      representedObject:self
+                          keyEquivalent:nil
+                             pluginName:[self localizedStringForKey:@"plugin-name"]];
+    
+    [controller registerActionWithTitle:[self localizedStringForKey:@"menu-item-2-title"]
+                  underSubmenuWithTitle:nil
+                                 target:self
+                               selector:@selector(test:)
+                      representedObject:self
+                          keyEquivalent:[self localizedStringForKey:@"menu-item-2-key-command"]
+                             pluginName:[self localizedStringForKey:@"plugin-name"]];
+    
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    supportedFileExtensions = [[bundle infoDictionary] objectForKey:@"SupportedFileExtensions"];
+}
+
+
+#pragma -
+#pragma Actions
+
+- (IBAction)closeSheet:(id)sender
+{
+    [NSApp endSheet:_sheet];
+    [_sheet orderOut:sender];
+}
+
+- (IBAction)saveURL:(id)sender
+{
+    [self closeSheet:sender];
+    
+    // Save URL
+}
+
+- (void)showURLSheet:(id)sender
+{
+    if (_sheet == nil)
+    {
+        [NSBundle loadNibNamed:@"URLSheet" owner:self];
+        
+        // Localize labels
+        [_messageLabel setStringValue:[self localizedStringForKey:@"sheet-message"]];
+        [_URLLabel setStringValue:[self localizedStringForKey:@"sheet-url-label"]];
+        [[_URLTextField cell] setPlaceholderString:[self localizedStringForKey:@"sheet-url-text-field-placeholder"]];
+        [_cancelButton setStringValue:[self localizedStringForKey:@"sheet-cancel-button"]];
+        [_saveButton setStringValue:[self localizedStringForKey:@"sheet-save-button"]];
+    }
+
+    [NSApp beginSheet:_sheet
+       modalForWindow:[textView window]
+        modalDelegate:self
+       didEndSelector:nil
+          contextInfo:nil];
+}
+
+- (void)test:(id)sender
+{
+    [textView insertText:@"TEST"];
+}
+
+#pragma -
+#pragma Helpers
 
 - (BOOL)isSupportedFileExtension
 {
@@ -110,49 +161,12 @@ NSString *stringToBeEncoded = @"";
     if ([textView path])
         return [supportedFileExtensions containsObject:[[textView path] pathExtension]];
     
-    NSArray *titleParts = [[[textView window] title] componentsSeparatedByString:@" - "];
-    
-    return [supportedFileExtensions containsObject:[[titleParts objectAtIndex:0] pathExtension]];
+    return NO;
 }
 
-- (BOOL)canBeEncoded:(NSString *)string
+- (NSString *)localizedStringForKey:(NSString *)key
 {
-    BOOL canBeEncoded = YES;
-    
-    if ( ! [self isSupportedFileExtension])
-        return NO;
-    
-    if ([string length] != 1 || string == nil)
-        return NO;
-    
-    NSArray *characterSets = [NSArray arrayWithObjects:
-                              [NSCharacterSet characterSetWithCharactersInString:@"`~!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/"],
-                              [NSCharacterSet controlCharacterSet],
-                              [NSCharacterSet decimalDigitCharacterSet],
-                              [NSCharacterSet letterCharacterSet],
-                              [NSCharacterSet newlineCharacterSet],
-                              [NSCharacterSet nonBaseCharacterSet],
-                              [NSCharacterSet whitespaceAndNewlineCharacterSet], nil];
-    
-    for (NSCharacterSet *charSet in characterSets)
-    {
-        if ([string rangeOfCharacterFromSet:charSet].location != NSNotFound)
-            canBeEncoded = NO;
-    }
-    
-    return canBeEncoded;
-}
-
-- (void)encodeHTMLEntities
-{
-    textView = [controller focusedTextView:self];
-    
-    NSMenuItem *textMenuItem = [[[textView window] menu] itemAtIndex:4];
-    NSMenu *textMenu = [textMenuItem submenu];
-    NSMenuItem *processingMenuItem = [textMenu itemAtIndex:9];
-    NSMenu *processingMenu = [processingMenuItem submenu];
-    
-    [processingMenu performActionForItemAtIndex:0];
+    return NSLocalizedStringFromTableInBundle(key, nil, [NSBundle bundleForClass:[self class]], nil);
 }
 
 @end

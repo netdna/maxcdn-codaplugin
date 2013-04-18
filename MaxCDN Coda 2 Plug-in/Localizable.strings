@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  MaxCDN Coda 2 Plug-in
+*/
+
+/* General */
+"plugin-name" = "MaxCDN URL";
+"menu-item-1-title" = "Set URL...";
+"menu-item-2-title" = "Insert URL";
+"menu-item-2-key-command" = "^~@u";
+
+/* Sheet */
+"sheet-message" = "Enter your MaxCDN URL.";
+"sheet-url-label" = "URL:";
+"sheet-url-text-field-placeholder" = "http://foo.bar.netdna-cdn.com";
+"sheet-cancel-button" = "Cancel";
+"sheet-save-button" = "Save";
