@@ -8,7 +8,7 @@
 
 NSString * const kDefaultsURLKey = @"MaxCDNURL";
 NSString * const kExtensionJoinString = @"|";
-NSString * const kProtocolPrefix = @"://";
+NSString * const kProtocolRegex = @"(://)";
 NSString * const kSheetXIB = @"URLSheet";
 NSString * const kUpDirectoryPrefix = @"../";
 NSString * const kURLRegex = @"([^\\s|\"|'|=|(]+\\.(%@))";
@@ -56,7 +56,6 @@ NSString * const kURLRegex = @"([^\\s|\"|'|=|(]+\\.(%@))";
         return nil;
     
     controller = inController;
-    textView = [controller focusedTextView:self];
 
     [self initializePlugin];
         
@@ -66,11 +65,6 @@ NSString * const kURLRegex = @"([^\\s|\"|'|=|(]+\\.(%@))";
 - (NSString*)name
 {
 	return [self localizedStringForKey:@"plugin-name"];
-}
-
-- (void)textViewDidFocus:(CodaTextView *)aTextView;
-{
-    textView = aTextView;
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)aMenuItem
@@ -178,16 +172,29 @@ NSString * const kURLRegex = @"([^\\s|\"|'|=|(]+\\.(%@))";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if ([defaults objectForKey:kDefaultsURLKey] != nil)
+    {
         [_URLTextField setStringValue:[defaults valueForKey:kDefaultsURLKey]];
+        [_saveButton setEnabled:YES];
+    }
 
     [NSApp beginSheet:_sheet modalForWindow:[textView window] modalDelegate:self didEndSelector:nil contextInfo:nil];
 }
 
 - (void)insertURL:(id)sender
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    textView = [controller focusedTextView:self];
+    
+    // If there is no saved URL, show the URL sheet
+    if ([[defaults objectForKey:kDefaultsURLKey] isEqualTo:@""])
+    {
+        [self showURLSheet:self];
+        return;
+    }
+    
     NSString *joinedSupportedFileExtensions = [supportedFileExtensions componentsJoinedByString:kExtensionJoinString];
     NSString *regex = [NSString stringWithFormat:kURLRegex, joinedSupportedFileExtensions];
-    NSMutableString *textViewString = [NSMutableString stringWithString:[textView string]];
+    NSMutableString *textViewString = [NSMutableString  stringWithString:[textView string]];
     __block NSInteger replacements = 0;
     
     [textViewString replaceOccurrencesOfRegex:regex usingBlock:^(NSInteger captureCount,
@@ -195,12 +202,11 @@ NSString * const kURLRegex = @"([^\\s|\"|'|=|(]+\\.(%@))";
                                                                      const NSRange *capturedRanges,
                                                                      volatile BOOL *const stop)
     {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *CDNURL = [defaults objectForKey:kDefaultsURLKey];
         
         // Only convert URLs that do NOT have a protocol or up one directory pattern in front of them
-        if (! [capturedStrings[0] hasPrefix:kProtocolPrefix] &&
-            ! [capturedStrings[0] hasPrefix:kUpDirectoryPrefix])
+        if ([[capturedStrings[0] componentsMatchedByRegex:kProtocolRegex] count] == 0 &&
+            [capturedStrings[0] hasPrefix:kUpDirectoryPrefix] == NO)
         {
             // Append a / to end of URLs that do no have one
             NSString *URLPrefix = [CDNURL hasSuffix:@"/"] ? CDNURL : [CDNURL stringByAppendingString:@"/"];
