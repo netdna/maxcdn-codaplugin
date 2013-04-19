@@ -78,7 +78,8 @@ NSString * const kURLRegex = @"([^\\s|\"|'|=|(]+\\.(%@))";
     BOOL result = YES;
     
     // Disable the Insert menu item if the editor doesn't have focus
-	if ([aMenuItem title] == [self localizedStringForKey:@"menu-item-2-title"])
+	if ([aMenuItem title] == [self localizedStringForKey:@"menu-item-1-title"] ||
+        [aMenuItem title] == [self localizedStringForKey:@"menu-item-2-title"])
 	{
 		CodaTextView *tv = [controller focusedTextView:self];
         
