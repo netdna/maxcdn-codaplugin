@@ -8,9 +8,10 @@
 
 NSString * const kDefaultsURLKey = @"MaxCDNURL";
 NSString * const kExtensionJoinString = @"|";
-NSString * const kProtocolRegex = @"(://)";
+NSString * const kProtocolPrefix = @"://";
 NSString * const kSheetXIB = @"URLSheet";
-NSString * const kURLRegex = @"([^\\s|\"|'|=|(]+.(%@))";
+NSString * const kUpDirectoryPrefix = @"../";
+NSString * const kURLRegex = @"([^\\s|\"|'|=|(]+\\.(%@))";
 
 @interface MaxCDNURLPlugin()
 {
@@ -114,6 +115,30 @@ NSString * const kURLRegex = @"([^\\s|\"|'|=|(]+.(%@))";
     supportedFileExtensions = [[bundle infoDictionary] objectForKey:@"SupportedFileExtensions"];
 }
 
+#pragma -
+#pragma NSTextFieldDelegate
+
+- (void)controlTextDidChange:(NSNotification *)notification
+{
+    id field = [notification object];
+    
+    if ([[field stringValue] isEqualTo:@""])
+    {
+        NSBeep();
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *savedURL = [defaults valueForKey:kDefaultsURLKey];
+        
+        [field setStringValue:savedURL];
+        
+        [_saveButton setEnabled: ! [savedURL isEqualTo:@""]];
+    }
+    else
+    {
+        [_saveButton setEnabled:YES];
+    }
+}
+
 
 #pragma -
 #pragma Actions
@@ -145,6 +170,8 @@ NSString * const kURLRegex = @"([^\\s|\"|'|=|(]+.(%@))";
         [[_URLTextField cell] setPlaceholderString:[self localizedStringForKey:@"sheet-url-text-field-placeholder"]];
         [_cancelButton setStringValue:[self localizedStringForKey:@"sheet-cancel-button"]];
         [_saveButton setStringValue:[self localizedStringForKey:@"sheet-save-button"]];
+        
+        [_sheet setDefaultButtonCell:[_saveButton cell]];
     }
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -157,13 +184,12 @@ NSString * const kURLRegex = @"([^\\s|\"|'|=|(]+.(%@))";
 
 - (void)insertURL:(id)sender
 {
-    [textView beginUndoGrouping];
-    
     NSString *joinedSupportedFileExtensions = [supportedFileExtensions componentsJoinedByString:kExtensionJoinString];
     NSString *regex = [NSString stringWithFormat:kURLRegex, joinedSupportedFileExtensions];
     NSMutableString *textViewString = [NSMutableString stringWithString:[textView string]];
+    __block NSInteger replacements = 0;
     
-    [textViewString enumerateStringsMatchedByRegex:regex usingBlock:^(NSInteger captureCount,
+    [textViewString replaceOccurrencesOfRegex:regex usingBlock:^(NSInteger captureCount,
                                                                      NSString *const __unsafe_unretained *capturedStrings,
                                                                      const NSRange *capturedRanges,
                                                                      volatile BOOL *const stop)
@@ -171,8 +197,9 @@ NSString * const kURLRegex = @"([^\\s|\"|'|=|(]+.(%@))";
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *CDNURL = [defaults objectForKey:kDefaultsURLKey];
         
-        // Only convert URLs that do not have a protocol in front of them
-        if ([[capturedStrings[0] componentsMatchedByRegex:kProtocolRegex] count] == 0)
+        // Only convert URLs that do NOT have a protocol or up one directory pattern in front of them
+        if (! [capturedStrings[0] hasPrefix:kProtocolPrefix] &&
+            ! [capturedStrings[0] hasPrefix:kUpDirectoryPrefix])
         {
             // Append a / to end of URLs that do no have one
             NSString *URLPrefix = [CDNURL hasSuffix:@"/"] ? CDNURL : [CDNURL stringByAppendingString:@"/"];
@@ -182,14 +209,21 @@ NSString * const kURLRegex = @"([^\\s|\"|'|=|(]+.(%@))";
             
             // Append CDN URL to matched URL
             NSString *newURL = [NSString stringWithFormat:@"%@%@", URLPrefix, updatedMatch];
-
-//            [textView replaceCharactersInRange:capturedRanges[0] withString:newURL];
-            [textView insertText:newURL];
-            [textView insertText:@"\n"];
+            
+            replacements++;
+            
+            return newURL;
         }
+        
+        return capturedStrings[0];
     }];
     
-    [textView endUndoGrouping];
+    if (replacements > 0)
+    {
+        [textView beginUndoGrouping];
+        [textView replaceCharactersInRange:NSMakeRange(0, [[textView string] length]) withString:textViewString];
+        [textView endUndoGrouping];        
+    }
 }
 
 #pragma -

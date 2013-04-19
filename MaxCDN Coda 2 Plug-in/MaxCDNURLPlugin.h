@@ -9,6 +9,6 @@
 
 @class CodaPlugInsController;
 
-@interface MaxCDNURLPlugin : NSObject <CodaPlugIn>
+@interface MaxCDNURLPlugin : NSObject <CodaPlugIn, NSTextFieldDelegate>
 
 @end
