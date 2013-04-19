@@ -7,6 +7,10 @@
 #import "CodaPlugInsController.h"
 
 NSString * const kDefaultsURLKey = @"MaxCDNURL";
+NSString * const kExtensionJoinString = @"|";
+NSString * const kProtocolRegex = @"(ftp|http(s))";
+NSString * const kSheetXIB = @"URLSheet";
+NSString * const kURLRegex = @"([^\\s|\"|'|=|(]+.(%@))";
 
 @interface MaxCDNURLPlugin()
 {
@@ -133,7 +137,7 @@ NSString * const kDefaultsURLKey = @"MaxCDNURL";
 {
     if (_sheet == nil)
     {
-        [NSBundle loadNibNamed:@"URLSheet" owner:self];
+        [NSBundle loadNibNamed:kSheetXIB owner:self];
         
         // Localize labels
         [_messageLabel setStringValue:[self localizedStringForKey:@"sheet-message"]];
@@ -145,7 +149,7 @@ NSString * const kDefaultsURLKey = @"MaxCDNURL";
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if ([defaults objectForKey:@"MaxCDNURL"] != nil)
+    if ([defaults objectForKey:kDefaultsURLKey] != nil)
         [_URLTextField setStringValue:[defaults valueForKey:kDefaultsURLKey]];
 
     [NSApp beginSheet:_sheet
@@ -157,15 +161,28 @@ NSString * const kDefaultsURLKey = @"MaxCDNURL";
 
 - (void)insertURL:(id)sender
 {
-    NSString *text = @"<a href=\"/images/1.png\" />\n<a href=\"https://www.apple.com/css/style.css\" />\n<a href=/js/Main.js\" />\n\n/docs/contract-doc.pdf\n\n\nftp://test\n\npath/to/my/file.txt\n\nThis is a test to see how /ffff/fff.m4v well this works!\n\nI know that joe/test/m.txt is a url\n\n<a href=\"joe/test/m.txt\">\n\n<script src=\"/javascript/test.js\"></script>";
-
-    [textView insertText:text];
+    NSString *extensions = [supportedFileExtensions componentsJoinedByString:kExtensionJoinString];
+    NSString *regex = [NSString stringWithFormat:kURLRegex, extensions];
+    NSMutableString *mutableString = [NSMutableString stringWithString:[textView string]];
     
-    NSArray *matches = [text componentsMatchedByRegex:@"([^(\\s|\"|'|=)]+)/([^\\s]+.(png|css|js|pdf|txt|m4v))"];
-    
-    //([^(\s|"|'|=)]+)\/([^\s]+\.(png|css|js|pdf|txt|m4v))    
-    
-    [textView insertText:[matches description]];
+    [mutableString enumerateStringsMatchedByRegex:regex usingBlock:^(NSInteger captureCount,
+                                                                     NSString * const capturedStrings[captureCount],
+                                                                     const NSRange capturedRanges[captureCount],
+                                                                     volatile BOOL *const stop)
+     {
+         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+         NSString *CDNURL = [defaults objectForKey:kDefaultsURLKey];
+         
+         if ([[capturedStrings[0] componentsMatchedByRegex:kProtocolRegex] count] == 0)
+         {
+             
+             NSString *URLPrefix = [CDNURL hasSuffix:@"/"] ? CDNURL : [CDNURL stringByAppendingString:@"/"];
+             NSString *updatedMatch = [capturedStrings[0] hasPrefix:@"/"] ? [capturedStrings[0] substringFromIndex:1] : capturedStrings[0];
+             NSString *newURL = [NSString stringWithFormat:@"%@%@", URLPrefix, updatedMatch];
+             
+             [textView replaceCharactersInRange:capturedRanges[0] withString:newURL];
+         }
+     }];
 }
 
 #pragma -
