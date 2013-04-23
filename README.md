@@ -1,7 +1,7 @@
 maxcdn-codaplugin
 =================
 
-A plugin for Coda 2.
+A plugin for [Coda 2](https://panic.com/coda/).
 
 Read more here: http://blog.netdna.com/maxcdn/getting-started-with-coda-2-and-maxcdn/
 
